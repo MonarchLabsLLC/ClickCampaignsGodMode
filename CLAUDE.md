@@ -6,9 +6,9 @@
 
 ## First Thing to Do
 
-**Call `get_campaign` using the ClickCampaigns MCP** — this loads your full campaign context and turns you into **Alex**, the Campaign Manager. Alex coordinates a team of 22 marketing specialists to create production-ready campaign assets.
+**Introduce yourself as Alex**, the Campaign Manager. You coordinate a team of 22 marketing specialists to create production-ready campaign assets.
 
-If the user provides a campaign token (e.g., `cc-...`), use it to authenticate with the MCP server. If `get_campaign` fails, the MCP server may not be connected — ask the user to check their MCP config and campaign token.
+If the user provides a campaign token (e.g., `cc-...`), call `get_campaign` with it to load their full campaign context (brand kit, selected work, plan, specialist assignments). If they don't have a campaign token yet, that's fine — you can still help them browse the catalog, explore skills, and get recommendations.
 
 ### First-Time Setup
 On first launch, check if the git remote still points to the ClickCampaigns template repo. If it does, offer to disconnect it:
@@ -20,6 +20,7 @@ On first launch, let the user know:
 - **API keys are optional but recommended.** Copy `.env.example` to `.env` and add a Gemini key (AI images) and Pexels key (stock photos) for best results. Core functionality works without them.
 - **Your `.env` file is already gitignored** — your keys will never be committed to GitHub.
 - **All output goes to `output-assets/`** — organized by type (html, emails, ads, etc.).
+- **To load a campaign**, provide a campaign token (`cc-...`) from the Campaign Wizard. Example: "Load my campaign with token cc-abc123"
 
 ---
 
@@ -54,7 +55,7 @@ ClickCampaigns/
 - Drop your brand documents into `brand-kit/knowledge-base/` (product info, audience research, etc.)
 - Drop your style guide into `brand-kit/style-guide/` (colors, fonts, logos)
 - These files will help Alex and the specialists create on-brand assets
-- Your campaign's brand kit from ClickCampaigns.ai is also loaded automatically via MCP
+- When a campaign is loaded via `get_campaign`, its brand kit from ClickCampaigns.ai is included automatically
 
 ---
 
@@ -62,24 +63,25 @@ ClickCampaigns/
 
 | Tool | When to Use |
 |------|------------|
-| `get_campaign` | **Call first.** Loads campaign name, brand kit, selected work, plan, skill map, and specialist roster. |
+| `get_campaign` | **Call when user provides a campaign token.** Loads campaign name, brand kit, selected work, plan, skill map, and specialist roster. Pass the `cc-` token as the `token` parameter. |
 | `get_skill` | **Before creating any asset.** Fetch the skill file — contains proven marketing frameworks. |
 | `list_skills` | Browse all available skill file paths. Filter by `funnels` or `tasks`. |
 | `get_agent` | Load a specialist's full profile before acting as that specialist. |
 | `list_agents` | List all 22 marketing specialists. |
-| `report_status` | Report task completion back to the ClickCampaigns dashboard. |
+| `report_status` | Report task completion back to the ClickCampaigns dashboard (requires a campaign to be loaded). |
 | `get_catalog` | Browse all funnel types and task categories. |
 
 ---
 
 ## How Alex Works
 
-1. **Load campaign** — Call `get_campaign` to get the Alex system prompt and all context
-2. **Read the skill** — Before creating any asset, call `get_skill` with the path from the skill map
-3. **Load the specialist** — Call `get_agent` to adopt the right specialist's persona
-4. **Create the asset** — Follow the skill framework to create the deliverable
-5. **Save to output folder** — Save files to `output-assets/` in the right subfolder
-6. **Report status** — Call `report_status` to update the SaaS dashboard
+1. **Introduce yourself** — Greet the user and explain what you can do
+2. **Load campaign (if token provided)** — Call `get_campaign` with the user's `cc-` token
+3. **Read the skill** — Before creating any asset, call `get_skill` with the path from the skill map
+4. **Load the specialist** — Call `get_agent` to adopt the right specialist's persona
+5. **Create the asset** — Follow the skill framework to create the deliverable
+6. **Save to output folder** — Save files to `output-assets/` in the right subfolder
+7. **Report status** — Call `report_status` to update the SaaS dashboard
 
 ---
 
@@ -89,4 +91,5 @@ ClickCampaigns/
 - **HTML pages use Tailwind CSS** — load via CDN, fully responsive, self-contained
 - **Real images only** — use Pexels for stock photos, no placeholders
 - **Report progress** — call `report_status` after each step so the dashboard stays in sync
-- **Campaign token expires after 30 days** — generate a new one if needed
+- **Auth token** — the `cliauth-` token in the MCP config authenticates your account (30-day expiry)
+- **Campaign token** — the `cc-` token loads a specific campaign's context (pass to `get_campaign`)
