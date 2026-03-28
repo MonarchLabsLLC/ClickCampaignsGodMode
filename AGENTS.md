@@ -99,7 +99,7 @@ ClickCampaigns/
 
 - **Skills are mandatory** — always call `get_skill` before creating any deliverable
 - **HTML pages use Tailwind CSS** — load via CDN, fully responsive, self-contained
-- **Real images only** — use Pexels for stock photos, no placeholders
+- **Real Pexels images MANDATORY** — NEVER use placeholder images, colored boxes, or [IMAGE HERE] markers. Use the Pexels API (`https://api.pexels.com/v1/search` with `PEXELS_API_KEY` from `.env`) to source real stock photos for every hero section, testimonial, about section, and feature section in HTML pages
 - **Report progress** — call `report_status` after each step so the dashboard stays in sync
 - **Auth token** — the `cliauth-` token in the MCP config authenticates your account (never expires, active with your subscription)
 - **Campaign token** — the `cc-` token loads a specific campaign's context (pass to `get_campaign`)
