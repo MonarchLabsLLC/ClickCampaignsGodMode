@@ -91,5 +91,5 @@ ClickCampaigns/
 - **HTML pages use Tailwind CSS** — load via CDN, fully responsive, self-contained
 - **Real images only** — use Pexels for stock photos, no placeholders
 - **Report progress** — call `report_status` after each step so the dashboard stays in sync
-- **Auth token** — the `cliauth-` token in the MCP config authenticates your account (30-day expiry)
+- **Auth token** — the `cliauth-` token in the MCP config authenticates your account (never expires, active with your subscription)
 - **Campaign token** — the `cc-` token loads a specific campaign's context (pass to `get_campaign`)
