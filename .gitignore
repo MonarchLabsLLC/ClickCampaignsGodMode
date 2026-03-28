@@ -1,5 +1,6 @@
-# API keys — never commit these
+# API keys and tokens — never commit these
 .env
+.mcp.json
 
 # OS files
 .DS_Store

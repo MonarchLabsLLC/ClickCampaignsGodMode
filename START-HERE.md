@@ -56,19 +56,19 @@ You need an auth token to connect to ClickCampaigns. This is a one-time setup.
 
 Now connect your editor to ClickCampaigns using the token you just copied.
 
-**Option A — Let Claude Code do it for you (easiest):**
+**Option A — One command in your terminal (easiest, recommended):**
 
-Open the terminal in your editor and paste this prompt:
+Open your terminal and run this command (replace the token with yours from Step 3):
 
+```bash
+claude mcp add clickcampaigns --transport http --url "https://clickcampaigns.ai/mcp" --header "Authorization: Bearer cliauth-PASTE-YOUR-TOKEN-HERE"
 ```
-Add a global MCP server called "clickcampaigns" with type "url", url "https://clickcampaigns.ai/mcp", and an Authorization header set to "Bearer cliauth-PASTE-YOUR-TOKEN-HERE". Then read the CLAUDE.md file, call get_campaign, and introduce yourself as Alex.
-```
 
-Replace `cliauth-PASTE-YOUR-TOKEN-HERE` with the token you copied in Step 3. Claude Code will install the MCP and get started.
+This writes the config to the correct location automatically. No file editing needed.
 
-**Option B — Add the MCP config manually:**
+**Option B — Add the config file manually:**
 
-Add this to your Claude Code settings (`~/.claude/settings.json`) or Cursor MCP settings:
+Create a file called `.mcp.json` in this project folder (the same folder as this START-HERE.md):
 
 ```json
 {
@@ -84,7 +84,9 @@ Add this to your Claude Code settings (`~/.claude/settings.json`) or Cursor MCP 
 }
 ```
 
-Then launch Claude Code and say:
+> **For Cursor:** Go to **Settings → MCP** and paste the config there instead.
+
+**After connecting (both options):** Start a new Claude Code session (MCP servers only load at session start), then say:
 
 ```
 Read the CLAUDE.md file, use the ClickCampaigns MCP, and introduce yourself as Alex.
