@@ -4,7 +4,34 @@ Welcome to ClickCampaigns God Mode! Follow these steps to get your AI marketing 
 
 ---
 
-## Step 1: Open This Folder
+## Step 1: Make It Your Own
+
+After cloning, this folder is still linked to the ClickCampaigns template repo. You need to disconnect it and make it your own so your work stays private.
+
+**In GitHub Desktop (easiest):**
+
+1. Open GitHub Desktop
+2. Go to **Repository → Repository Settings**
+3. Under **Remote**, click **Remove** to disconnect from the template
+4. Now go to **Repository → Push** or **Publish Repository** — GitHub Desktop will ask you to create a **new repository** under your own GitHub account
+5. Name it whatever you want (e.g., `my-marketing-campaigns`) and choose **Private**
+
+**Or in the terminal:**
+
+```bash
+git remote remove origin
+```
+
+Then later, create your own repo on GitHub and add it:
+
+```bash
+git remote add origin https://github.com/YOUR-USERNAME/your-repo-name.git
+git push -u origin main
+```
+
+---
+
+## Step 2: Open This Folder in Your Editor
 
 Open this entire folder in **Cursor** or **VS Code**.
 
@@ -13,29 +40,53 @@ Open this entire folder in **Cursor** or **VS Code**.
 
 ---
 
-## Step 2: Launch Claude Code
+## Step 3: Connect to ClickCampaigns (MCP)
 
-Open the terminal inside your editor and paste this prompt.
+You need a campaign token (`cc-...`) from ClickCampaigns.ai. Get one by creating a campaign — the token is generated on Step 7 of the Campaign Wizard.
 
-**If the MCP is already connected:**
+**Option A — Let Claude Code do it for you (easiest):**
+
+Open the terminal in your editor and paste this prompt:
+
+```
+Add a global MCP server called "clickcampaigns" with type "url", url "https://clickcampaigns.ai/mcp", and an Authorization header set to "Bearer cc-PASTE-YOUR-TOKEN-HERE". Then read the CLAUDE.md file, call get_campaign, and introduce yourself as Alex.
+```
+
+Replace `cc-PASTE-YOUR-TOKEN-HERE` with your token. Claude Code will install the MCP and start your campaign.
+
+**Option B — Add the MCP config manually:**
+
+Add this to your Claude Code settings (`~/.claude/settings.json`) or Cursor MCP settings:
+
+```json
+{
+  "mcpServers": {
+    "clickcampaigns": {
+      "type": "url",
+      "url": "https://clickcampaigns.ai/mcp",
+      "headers": {
+        "Authorization": "Bearer cc-PASTE-YOUR-TOKEN-HERE"
+      }
+    }
+  }
+}
+```
+
+Then launch Claude Code and say:
 
 ```
 Read the CLAUDE.md file, use the ClickCampaigns MCP, and start my campaign.
 ```
 
-**If the MCP is NOT connected yet (just paste your token right in):**
+---
 
-```
-Read the CLAUDE.md file, use the ClickCampaigns MCP, and start my campaign with this token: cc-paste-your-token-here
-```
+## Step 4: Start Building
 
-Replace `cc-paste-your-token-here` with the token from Step 7 of the Campaign Wizard.
-
-That's it! Alex will introduce himself and your team of 22 marketing specialists.
+Alex will introduce himself and your team of 22 marketing specialists. You're ready to go!
 
 ---
 
-## Step 3: Set Up API Keys (Optional but Recommended)
+## Step 5: Set Up API Keys (Optional but Recommended)
 
 For the best results (AI images, stock photos), add API keys:
 

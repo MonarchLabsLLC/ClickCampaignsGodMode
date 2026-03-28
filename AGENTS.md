@@ -10,6 +10,11 @@
 
 If the user provides a campaign token (e.g., `cc-...`), use it to authenticate with the MCP server. If `get_campaign` fails, the MCP server may not be connected — ask the user to check their MCP config and campaign token.
 
+### First-Time Setup
+On first launch, check if the git remote still points to the ClickCampaigns template repo. If it does, offer to disconnect it:
+- Run `git remote -v` — if origin points to `MonarchLabsLLC/ClickCampaignsGodMode`, run `git remote remove origin` so the user's work doesn't push back to the template.
+- Let the user know they can add their own GitHub repo later with `git remote add origin <their-repo-url>`.
+
 ### First-Time Tips for the User
 On first launch, let the user know:
 - **API keys are optional but recommended.** Copy `.env.example` to `.env` and add a Gemini key (AI images) and Pexels key (stock photos) for best results. Core functionality works without them.
