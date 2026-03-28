@@ -30,7 +30,26 @@ On first launch, check if the git remote still points to the ClickCampaigns temp
 On first launch, briefly let the user know:
 - **API keys are optional but recommended.** Copy `.env.example` to `.env` and add a Gemini key (AI images) and Pexels key (stock photos) for best results. Core functionality works without them.
 - **Your `.env` file is already gitignored** — your keys will never be committed to GitHub.
-- **All output goes to `output-assets/`** — organized by type (html, emails, ads, etc.).
+- **All output goes to `campaigns/{campaign-name}/output-assets/`** — each campaign is isolated in its own folder.
+
+---
+
+## Campaign Initialization (Required Before Creating Assets)
+
+Before creating ANY assets, Alex must establish a campaign working directory.
+
+### If the user provides a campaign token:
+1. Call `get_campaign` with the token
+2. Use the `slug` field from the response as the campaign folder name
+3. Create the folder structure: `campaigns/{slug}/output-assets/` with subfolders: `html/`, `emails/`, `documents/`, `presentations/`, `images/`, `ads/`, `pdfs/`
+4. ALL output for this campaign goes into `campaigns/{slug}/output-assets/`
+
+### If the user is in Direct or Guided mode (no token):
+1. Ask the user for a campaign name
+2. Slugify it: lowercase, hyphens, no special characters
+3. Create the same folder structure under `campaigns/{slug}/output-assets/`
+
+### NEVER save assets to a root-level `output-assets/` directory. Every campaign gets its own isolated folder.
 
 ---
 
@@ -44,22 +63,25 @@ ClickCampaigns/
 ├── brand-kit/
 │   ├── knowledge-base/               # Brand info, product details, audience research
 │   └── style-guide/                  # Colors, fonts, logos, brand guidelines
-├── campaigns/                        # One folder per campaign
-│   └── [campaign-name]/              # Created automatically per campaign
-└── output-assets/                    # Campaign deliverables
-    ├── html/                         # Funnel pages (self-contained HTML + Tailwind)
-    ├── emails/                       # Email sequences (Markdown)
-    ├── ads/                          # Ad copy with variations
-    ├── documents/                    # VSL scripts, sales letters, guides
-    ├── presentations/                # Webinar scripts and slides
-    ├── pdfs/                         # Lead magnets, formatted docs
-    └── images/                       # Generated or sourced images
+└── campaigns/                        # One folder per campaign
+    ├── summer-launch/                # Campaign 1
+    │   └── output-assets/
+    │       ├── html/
+    │       ├── emails/
+    │       ├── ads/
+    │       ├── documents/
+    │       ├── presentations/
+    │       ├── pdfs/
+    │       └── images/
+    └── black-friday-promo/           # Campaign 2
+        └── output-assets/
+            └── ...
 ```
 
 ### Where to Save Assets
-- Save all output to `output-assets/` in the appropriate subfolder
+- Save all output to `campaigns/{campaign-name}/output-assets/` in the appropriate subfolder
 - Use descriptive file names: `vsl-hybrid-sales-page.html`, `launch-sequence-emails.md`
-- For multi-campaign work, create subfolders: `output-assets/html/summer-launch/`
+- Each campaign is fully isolated — no file collisions between campaigns
 
 ### Brand Kit
 - Drop your brand documents into `brand-kit/knowledge-base/` (product info, audience research, etc.)
@@ -90,7 +112,7 @@ ClickCampaigns/
 3. **Read the skill** — Before creating any asset, call `get_skill` with the path from the skill map
 4. **Load the specialist** — Call `get_agent` to adopt the right specialist's persona
 5. **Create the asset** — Follow the skill framework to create the deliverable
-6. **Save to output folder** — Save files to `output-assets/` in the right subfolder
+6. **Save to campaign folder** — Save files to `campaigns/{campaign-name}/output-assets/` in the right subfolder
 7. **Report status** — Call `report_status` to update the SaaS dashboard
 
 ---
