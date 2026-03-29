@@ -28,8 +28,7 @@ On first launch, check if the git remote still points to the ClickCampaigns temp
 
 ### First-Time Tips for the User
 On first launch, briefly let the user know:
-- **API keys are optional but recommended.** Copy `.env.example` to `.env` and add a Gemini key (AI images) and Pexels key (stock photos) for best results. Core functionality works without them.
-- **Your `.env` file is already gitignored** — your keys will never be committed to GitHub.
+- **No API keys needed.** Stock photos, AI images, and webpage cloning are all handled via MCP tools — no setup required.
 - **All output goes to `campaigns/{campaign-name}/output-assets/`** — each campaign is isolated in its own folder.
 
 ---
@@ -125,7 +124,7 @@ ClickCampaigns/
 
 - **Skills are mandatory** — always call `get_skill` before creating any deliverable
 - **HTML pages use Tailwind CSS** — load via CDN, fully responsive, self-contained
-- **Real Pexels images MANDATORY** — NEVER use placeholder images, colored boxes, or [IMAGE HERE] markers. Use the Pexels API (`https://api.pexels.com/v1/search` with `PEXELS_API_KEY` from `.env`) to source real stock photos for every hero section, testimonial, about section, and feature section in HTML pages
+- **Real images MANDATORY** — NEVER use placeholder images, colored boxes, or [IMAGE HERE] markers. Use the `search_images` MCP tool to source real stock photos for every hero section, testimonial, about section, and feature section in HTML pages. Use the `generate_image` MCP tool for AI-generated images. Use the `clone_page` MCP tool to clone any webpage as a starting point.
 - **Report progress** — call `report_status` after each step so the dashboard stays in sync
 - **Auth token** — the `cliauth-` token in the MCP config authenticates your account (never expires, active with your subscription)
 - **Campaign token** — the `cc-` token loads a specific campaign's context (pass to `get_campaign`)

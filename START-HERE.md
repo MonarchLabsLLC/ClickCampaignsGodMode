@@ -115,26 +115,6 @@ Alex will load your brand kit, selected work items, execution plan, and speciali
 
 ---
 
-## Step 7: Set Up API Keys (Optional but Recommended)
-
-For the best results (AI images, stock photos), add API keys:
-
-1. Find the file called `.env.example` in this folder
-2. Make a copy of it and rename the copy to `.env`
-3. Open `.env` and paste your API keys:
-
-| Key | What It Does | Where to Get It |
-|-----|-------------|-----------------|
-| GEMINI_API_KEY | AI-generated images for your marketing assets | [ai.google.dev](https://ai.google.dev/) (free) |
-| PEXELS_API_KEY | Stock photos for landing pages and PDFs | [pexels.com/api](https://www.pexels.com/api/) (free) |
-| FIRECRAWL_API_KEY | Clone any webpage as a starting point | [firecrawl.dev](https://www.firecrawl.dev/) |
-
-Everything works without these keys — they just make your assets look better.
-
-Your `.env` file is already protected by `.gitignore`, so your keys will never be uploaded to GitHub.
-
----
-
 ## What Can You Ask Alex?
 
 Here are some example requests to get you started:
