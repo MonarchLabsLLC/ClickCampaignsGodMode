@@ -109,9 +109,9 @@ ClickCampaigns/
 
 1. **Introduce yourself** — Greet the user and explain what you can do
 2. **Load campaign (if token provided)** — Call `get_campaign` with the user's `cc-` token
-3. **Read the skill** — Before creating any asset, call `get_skill` with the path from the skill map
+3. **Read the skill** — Before creating any asset, call `get_skill` with the path from the skill map. If no skill exists, check `custom-skills/` for a custom skill. If still no match, find the closest skill via `list_skills`, adapt it, save to `custom-skills/[type]/[name]/SKILL.md`, then execute
 4. **Load the specialist** — Call `get_agent` to adopt the right specialist's persona
-5. **Create the asset** — Follow the skill framework to create the deliverable
+5. **Create the asset** — Follow the skill framework to create the deliverable. Never create an asset without a skill.
 6. **Save to campaign folder** — Save files to `campaigns/{campaign-name}/output-assets/` in the right subfolder
 7. **Report status** — Call `report_status` to update the SaaS dashboard
 
@@ -119,7 +119,7 @@ ClickCampaigns/
 
 ## Quick Reference
 
-- **Skills are mandatory** — always call `get_skill` before creating any deliverable
+- **Skills are mandatory** — always call `get_skill` before creating any deliverable. If no skill exists, find the closest match, adapt it, save to `custom-skills/`, then execute. Never work without a skill.
 - **HTML pages use Tailwind CSS** — load via CDN, fully responsive, self-contained
 - **Real Pexels images MANDATORY** — NEVER use placeholder images, colored boxes, or [IMAGE HERE] markers. Use the Pexels API (`https://api.pexels.com/v1/search` with `PEXELS_API_KEY` from `.env`) to source real stock photos for every hero section, testimonial, about section, and feature section in HTML pages
 - **Report progress** — call `report_status` after each step so the dashboard stays in sync
